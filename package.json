@@ -1,19 +1,19 @@
 {
   "name": "gds-vs-viewer",
   "displayName": "GDS VS-Viewer",
-  "description": "View GDS/OAS chip layout files directly in VS Code using KLayout",
+  "description": "View GDS/OAS chip layout files directly in VS Code using KLayout (kweb)",
   "version": "1.1.0",
-  "publisher": "AlejandroLorenzo",
+  "publisher": "Alejandro Lorenzo Ruiz",
   "license": "MIT",
   "icon": "media/icon.png",
   "repository": {
     "type": "git",
-    "url": "https://github.com/alejandrolorenzo/gds-vs-viewer.git"
+    "url": "https://github.com/alex-l-r/gds-vs-viewer.git"
   },
   "bugs": {
-    "url": "https://github.com/alejandrolorenzo/gds-vs-viewer/issues"
+    "url": "https://github.com/alex-l-r/gds-vs-viewer/issues"
   },
-  "homepage": "https://github.com/alejandrolorenzo/gds-vs-viewer#readme",
+  "homepage": "https://github.com/alex-l-r/gds-vs-viewer#readme",
   "keywords": [
     "gds",
     "oas",
