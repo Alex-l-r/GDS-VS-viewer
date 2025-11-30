@@ -3,7 +3,7 @@
   "displayName": "GDS VS-Viewer",
   "description": "View GDS/OAS chip layout files directly in VS Code using KLayout (kweb)",
   "version": "1.1.0",
-  "publisher": "Alejandro Lorenzo Ruiz",
+  "publisher": "Alex-l-r",
   "license": "MIT",
   "icon": "media/icon.png",
   "repository": {
