@@ -1,0 +1,100 @@
+{
+  "name": "gds-vs-viewer",
+  "displayName": "GDS VS-Viewer",
+  "description": "View GDS/OAS chip layout files directly in VS Code using KLayout",
+  "version": "1.1.0",
+  "publisher": "AlejandroLorenzo",
+  "license": "MIT",
+  "icon": "media/icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alejandrolorenzo/gds-vs-viewer.git"
+  },
+  "bugs": {
+    "url": "https://github.com/alejandrolorenzo/gds-vs-viewer/issues"
+  },
+  "homepage": "https://github.com/alejandrolorenzo/gds-vs-viewer#readme",
+  "keywords": [
+    "gds",
+    "oas",
+    "klayout",
+    "layout",
+    "viewer",
+    "eda",
+    "semiconductor",
+    "chip design"
+  ],
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "activationEvents": [],
+  "categories": [
+    "Other"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "configuration": {
+      "title": "GDS VS-Viewer",
+      "properties": {
+        "gdsViewer.pythonPath": {
+          "type": "string",
+          "default": "",
+          "description": "Path to Python executable. Leave empty to auto-detect."
+        },
+        "gdsViewer.serverTimeout": {
+          "type": "number",
+          "default": 10000,
+          "description": "Timeout in milliseconds to wait for the Python server to start."
+        },
+        "gdsViewer.hideEmptyLayers": {
+          "type": "boolean",
+          "default": true,
+          "description": "Hide empty layers by default in the layer panel."
+        },
+        "gdsViewer.autoReload": {
+          "type": "boolean",
+          "default": false,
+          "description": "Automatically reload the layout when the file changes on disk."
+        }
+      }
+    },
+    "customEditors": [
+      {
+        "viewType": "gdsViewer.gdsEditor",
+        "displayName": "GDS VS-Viewer",
+        "selector": [
+          {
+            "filenamePattern": "*.gds"
+          },
+          {
+            "filenamePattern": "*.oas"
+          }
+        ],
+        "priority": "default"
+      }
+    ],
+    "commands": [
+      {
+        "command": "gdsViewer.openFile",
+        "title": "Open GDS File",
+        "category": "GDS VS-Viewer"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile",
+    "lint": "eslint src --ext ts"
+  },
+  "devDependencies": {
+    "@types/node": "^18.0.0",
+    "@types/vscode": "^1.75.0",
+    "@typescript-eslint/eslint-plugin": "^5.0.0",
+    "@typescript-eslint/parser": "^5.0.0",
+    "eslint": "^8.0.0",
+    "typescript": "^4.9.0"
+  },
+  "dependencies": {}
+}

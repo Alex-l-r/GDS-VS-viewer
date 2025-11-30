@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="EDA File Viewer">
+        <meta name="keywords" content="eda">
+        <title>KWeb GDS File Viewer</title>
+        <link rel="stylesheet" href={{ url_for("kweb_static", path="/bootstrap/bootstrap.min.css") }}>
+    </link>
+    <link rel="stylesheet" href={{ url_for("kweb_static", path="/custom.css") }}>
+    <script type="text/javascript" src={{ url_for("kweb_static", path="/bootstrap/bootstrap.bundle.min.js") }}></script>
+</link>
+<link rel="icon" type="image/png" href={{ url_for("kweb_static", path="img/kweb.png") }}>
+</head>
+<body>
+    <div class="container-fluid h-100" id="viewer-panel">
+        <div class="row h-100 p-2" id="layout">
+            <div class="col-10 rounded shadow d-flex flex-column position-relative h-100 ps-0 pe-1"
+                 id="layout-view">
+                <canvas class="rounded shadow canvas-container h-100 w-100"
+                        style="min-width: 100px;
+                               min-height: 100px"
+                        id="layout_canvas"></canvas>
+                <div class="position-absolute top-0 start-1 p-4 row w-100 overflow-hidden"
+                     id="floating-buttons">
+                    <div id="modes" class="col m-0"></div>
+                    <div id="menu" class="col m-0 px-2 text-end"></div>
+                </div>
+            </div>
+            <div id="rightpanel"
+                 role="tablist"
+                 class="col-2 rounded shadow bg-default overflow-auto h-100 p-0 ps-1">
+                <ul class="nav nav-tabs" id="navigator" role="tablist">
+                    <li class="nav-item">
+                        <button class="nav-link active"
+                                id="layers-tab"
+                                data-bs-toggle="tab"
+                                data-bs-target="#layers-tab-pane"
+                                type="button"
+                                role="tab"
+                                aria-controls="layers-tab-pane"
+                                aria-selected="true">Layers</button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link"
+                                id="cells-tab"
+                                data-bs-toggle="tab"
+                                data-bs-target="#cells-tab-pane"
+                                type="button"
+                                role="tab"
+                                aria-controls="cells-tab-pane"
+                                aria-selected="false">Cells</button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link"
+                                id="metainfo-tab"
+                                data-bs-toggle="tab"
+                                data-bs-target="#metainfo-tab-pane"
+                                type="button"
+                                role="tab"
+                                aria-controls="metainfo-tab-pane"
+                                aria-selected="false"
+                                hidden>Cell MetaInfo</button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link"
+                                id="rdb-tab"
+                                data-bs-toggle="tab"
+                                data-bs-target="#rdb-tab-pane"
+                                type="button"
+                                role="tab"
+                                aria-controls="rdb-tab-pane"
+                                aria-selected="false"
+                                hidden>RDB</button>
+                    </li>
+                </ul>
+                <div class="tab-content" id="rightpanel-content">
+                    <div class="tab-pane fade show active"
+                         id="layers-tab-pane"
+                         role="tabpanel"
+                         aria-labelledby="layers-tab"
+                         tabindex="0">
+                        <div id="layer-buttons">
+                            <div class="form-check form-switch ps-2">
+                                <input class="form-check-input ms-0 ps-0"
+                                       type="checkbox"
+                                       role="switch"
+                                       id="layerEmptySwitch"
+                                       checked>
+                                <label class="form-check-label ps-2" for="layerEmptySwitch">Hide Empty Layers</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade"
+                         id="cells-tab-pane"
+                         role="tabpanel"
+                         aria-labelledby="cells-tab"
+                         tabindex="0"></div>
+                    <div class="tab-pane fade"
+                         id="metainfo-tab-pane"
+                         role="tabpanel"
+                         aria-labelledby="metainfo-tab"
+                         tabindex="0"></div>
+                    <div class="tab-pane fade"
+                         id="rdb-tab-pane"
+                         role="tabpanel"
+                         aria-labelledby="rdb-tab"
+                         tabindex="0">
+                        <div class="position-relative">
+                            <div class="form-floating my-1">
+                                <input type="text"
+                                       class="form-control z-0"
+                                       id="rdbCategory"
+                                       oninput="filterCategories(this);"
+                                       onfocus="categoryFocus(event);"
+                                       onfocusout="categoryFocusOut(event);"
+                                       placeholder="...">
+                                <label class="z-0" for="floatingInput">Filter by Category</label>
+                            </div>
+                            <select class="form-select position-absolute bottom-end-0 z-2 bg-light-subtle"
+                                    onchange="selectCategory(event)"
+                                    size="5"
+                                    id="rdbCategoryOptions"
+                                    onfocusout="categoryFocusOut(event);"
+                                    hidden></select>
+                        </div>
+                        <div class="position-relative">
+                            <div class="form-floating my-1">
+                                <input type="text"
+                                       class="form-control z-0"
+                                       id="rdbCell"
+                                       oninput="filterCells(this);"
+                                       onfocus="cellFocus(event);"
+                                       onfocusout="cellFocusOut(event);"
+                                       placeholder="...">
+                                <label class="z-0" for="floatingPassword">Filter by Cell</label>
+                            </div>
+                            <select class="form-select position-absolute bottom-end-0 z-2 bg-light-subtle"
+                                    onchange="selectCell(event);"
+                                    size="5"
+                                    id="rdbCellOptions"
+                                    onfocusout="cellFocusOut(event);"
+                                    hidden></select>
+                        </div>
+                        <select class="form-select my-1"
+                                onchange="requestItemDrawings();"
+                                multiple
+                                id="rdbItems"></select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>var ws_url="{{ url }}"; var params = new URLSearchParams({{ params | tojson | safe }})</script>
+    <script type="text/javascript" src={{ url_for("kweb_static", path="viewer.js") }}></script>
+</body>
+</html>

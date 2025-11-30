@@ -1,0 +1,40 @@
+# Development files
+.vscode/**
+.vscode-test/**
+.gitignore
+.yarnrc
+vsc-extension-quickstart.md
+**/tsconfig.json
+**/.eslintrc.json
+**/*.map
+**/*.ts
+
+# Keep Python backend
+!src/kweb/**/*.py
+!src/kweb/static/**
+!src/kweb/templates/**
+
+# Dependencies & build
+node_modules/**
+*.vsix
+
+# Examples & docs
+example/**
+examples/**
+docs/**
+
+# Scripts & config
+build.ps1
+build.sh
+validate_setup.py
+pyproject.toml
+.python-version
+
+# Tests
+tests/**
+.pytest_cache/**
+
+# Cache
+**/__pycache__/**
+**/*.pyc
+**/*.egg-info/**
