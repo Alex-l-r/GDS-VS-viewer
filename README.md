@@ -3,7 +3,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![VS Code](https://img.shields.io/badge/VS%20Code-Extension-blue.svg)](https://code.visualstudio.com/)
 
-View GDS and OAS chip layout files directly in Visual Studio Code using KLayout's powerful rendering engine.
+View GDS and OAS chip layout files directly in Visual Studio Code using an implementation of [kweb](https://github.com/gdsfactory/kweb).
 
 ![GDS VS-Viewer Screenshot](media/screenshot.png)
 
@@ -130,7 +130,6 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 Based on [kweb](https://github.com/gdsfactory/kweb) by the gdsfactory community.
 - **KLayout**: Layout viewer by Matthias Köfferlein
-- **Original**: https://github.com/klayoutmatthias/canvas2canvas
 
 ## License
 
